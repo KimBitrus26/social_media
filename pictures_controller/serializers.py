@@ -1,14 +1,7 @@
 from rest_framework import serializers
 from dj_rest_auth.serializers import UserDetailsSerializer
 
-from .models import Comment, Picture, Like
-
-
-class CommentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Comment
-        fields = "__all__"
+from .models import Comment, FriendLists, Picture, Like
 
 class LikeSerializer(serializers.ModelSerializer):
 
@@ -16,10 +9,19 @@ class LikeSerializer(serializers.ModelSerializer):
         model = Like
         fields = "__all__"
 
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField(read_only=True)
+   
+    class Meta:
+        model = Comment
+        fields = "__all__"
+
+    def get_user(self, obj):
+        return obj.user.first_name
 
 class PictureSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
-    comments = CommentSerializer(read_only=True)
+    comments = serializers.SerializerMethodField(read_only=True)
     like = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -33,3 +35,18 @@ class PictureSerializer(serializers.ModelSerializer):
     def get_like(self, obj):
         return obj.like.count()
 
+    def get_comments(self, obj):
+        return CommentSerializer(obj.comments.all(), many=True).data
+
+class LikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
+        fields = "__all__"
+        
+class FriendsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FriendLists
+        fields = "__all__"
+        
