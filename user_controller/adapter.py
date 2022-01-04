@@ -1,6 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from django.conf import settings
 
+
 EMAIL_VERIFICATION_LINK = settings.EMAIL_VERIFICATION_LINK
 
 class AccountAdapter(DefaultAccountAdapter):

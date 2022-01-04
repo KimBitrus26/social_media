@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
 ]
 
-SITE_ID = 1
+SITE_ID = 3
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -239,3 +239,6 @@ ACCOUNT_ADAPTER = 'user_controller.adapter.AccountAdapter'
 FRONT_END_BASE_URL = "http://127.0.0.1:3000/"
 
 EMAIL_VERIFICATION_LINK = FRONT_END_BASE_URL + "verify-email/"
+
+
+INITIATE_GOOGLE_LOGIN = "https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://127.0.0.1:8000/api/user/auth/google/&prompt=consent&response_type=code&client_id=889317119244-gqmsf71uf6mttg9rvmjeqco610qujca6.apps.googleusercontent.com&scope=openid%20email&access_type=offline"

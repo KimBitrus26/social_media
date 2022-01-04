@@ -8,12 +8,11 @@ from rest_framework_simplejwt.views import (
 from django.conf.urls.static import static
 from django.conf import settings
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/picture/", include("pictures_controller.urls")),
     path('api/user/', include("user_controller.urls")),
-
+    path('accounts/', include('allauth.urls'), name='socialaccount_signup'),
 
 ]
 if settings.DEBUG:
